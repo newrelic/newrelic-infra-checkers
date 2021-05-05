@@ -56,6 +56,9 @@ linters:
     - gochecknoinits
     - gocritic
     - gocyclo
+    - gocognit
+    - goerr113    #only add if go > 1.13
+    - errorlint   #only add if go > 1.13
     - gofmt
     - goimports
     - golint
@@ -65,9 +68,12 @@ linters:
     - gosimple
     - govet
     - ineffassign
+    - maligned
     - misspell
+    - nestif
     - nilerr
     - noctx
+    - prealloc
     - rowserrcheck
     - staticcheck
     - structcheck
@@ -83,18 +89,12 @@ linters:
   # - asciicheck
   # - scopelint
   # - gochecknoglobals
-  # - gocognit
   # - goconst   #looks for repetitions of variables that should go on constant
   # - godot
   # - godox
-  # - goerr113    #only add if go > 1.13
-  # - errorlint   #only add if go > 1.13
   # - interfacer
-  # - maligned
   # - nakedret
   # - nolintlint
-  # - nestif
-  # - prealloc
   # - testpackage
   # - revive
   # - wsl
