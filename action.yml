@@ -1,0 +1,8 @@
+name: 'Get static analysis tools configs'
+description: 'This action gets the required configs for the static analysis tools used to check nri-integrations'
+
+runs:
+  using: "composite"
+  steps: 
+    - run: $GITHUB_ACTION_PATH/action.sh
+      shell: bash
