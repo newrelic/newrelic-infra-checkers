@@ -15,12 +15,14 @@ semgrep_get_policies() {
   if [ -d "$SEMGREP_GO_FOLDER" ]; then rm -Rf $SEMGREP_GO_FOLDER; fi
   git clone $SEMGREP_GO_REPO;
 
+  echo "r"
   # substitute \ and \" symbols by placeholder so yq doesn't strip them
   OUT=$(sed 's/\\"/'"$PHOLDER_QUOTES"'/g' .semgrep.yml | sed 's/\\/'"$PHOLDER_SLASH"'/g')
   echo "$OUT" > .semgrep.yml
-
+echo "r2"
   if [[ -f "$BCK_SEMGREP_FILE" ]]
   then
+    echo "r4"
     # substitute \ and \" symbols by placeholder so yq doesn't strip them
     OUT=$(sed 's/\\"/'"$PHOLDER_QUOTES"'/g' "$BCK_SEMGREP_FILE" | sed 's/\\/'"$PHOLDER_SLASH"'/g')
     OUT=$(./bin/yq eval-all 'select(fileIndex == 0).rules + select(fileIndex == 1).rules' $BCK_SEMGREP_FILE .semgrep.yml |\
@@ -28,7 +30,7 @@ semgrep_get_policies() {
     echo "$OUT" > .semgrep.yml
     rm $BCK_SEMGREP_FILE
   fi
-
+echo "r5"
   for entry in "$SEMGREP_GO_FOLDER"/*
   do
     if [ "${entry: -4}" == ".yml" ]
@@ -36,16 +38,16 @@ semgrep_get_policies() {
         # substitute \ and \" symbols by placeholder so yq doesn't strip them
         OUTPUT=$(sed 's/\\"/'"$PHOLDER_QUOTES"'/g' $entry | sed 's/\\/'"$PHOLDER_SLASH"'/g')
         echo "$OUTPUT" > "$entry"
-
+echo "r6"
         OUTPUT=$(./bin/yq eval-all 'select(fileIndex == 0).rules + select(fileIndex == 1).rules' $entry .semgrep.yml |\
           ./bin/yq eval '{"rules": .}' -)
         echo "$OUTPUT" > .semgrep.yml
     fi
   done
-
+echo "r7"
   # restore \ and \" symbols from placeholder
   OUTPUT=$(sed 's/'"$PHOLDER_QUOTES"'/\\"/g' .semgrep.yml | sed 's/'"$PHOLDER_SLASH"'/\\\\/g')
   echo "$OUTPUT" > .semgrep.yml
-
+echo "r8"
   rm -rf semgrep-go
 }
