@@ -24,5 +24,4 @@ jobs:
         with:
           semgrep-append: false
       - name: Check if correct files exist
-        shell: bash
         run: make test

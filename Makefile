@@ -8,7 +8,7 @@ BASENAMES := $(foreach file,${TEST_FILES},$(notdir ${file}))
 
 test:
 	@echo "=== $(INTEGRATION) === [ test ]: Running unit tests..."
-	@sh ./test/test_local.sh
+	@bash ./test/test_local.sh
 
 .PHONY: test
 
