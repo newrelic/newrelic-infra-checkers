@@ -16,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Test get config files with local files
     steps:
-      - uses: actions/checkout@v2
       - name: Get test local files
         shell: bash
         run: mv ./test/data/* .
+      - uses: actions/checkout@v2
       - name: Run action
         uses: ./action.sh
         with:
