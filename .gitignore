@@ -2,6 +2,7 @@
 /.semgrep.yml
 /.semgrep-bck.yml
 /.semgrepignore
+test/tmp
 semgrep-go
 yq
 wget-log

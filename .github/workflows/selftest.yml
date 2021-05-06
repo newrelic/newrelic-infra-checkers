@@ -28,7 +28,7 @@ jobs:
       - name: 'Yamllint'
         uses: karancode/yamllint-github-action@master
         with:
-          yamllint_file_or_dir: ./.semgrep.yml
+          yamllint_file_or_dir: ./test/tmp
           yamllint_config_filepath: ./test/yamllint.yml
           yamllint_strict: false
           yamllint_comment: false
@@ -49,7 +49,7 @@ jobs:
       - name: 'Yamllint'
         uses: karancode/yamllint-github-action@master
         with:
-          yamllint_file_or_dir: ./.semgrep.yml
+          yamllint_file_or_dir: ./test/tmp
           yamllint_config_filepath: ./test/yamllint.yml
           yamllint_strict: false
           yamllint_comment: false
@@ -68,7 +68,7 @@ jobs:
       - name: 'Yamllint'
         uses: karancode/yamllint-github-action@master
         with:
-          yamllint_file_or_dir: ./.semgrep.yml
+          yamllint_file_or_dir: ./test/tmp
           yamllint_config_filepath: ./test/yamllint.yml
           yamllint_strict: false
           yamllint_comment: false
