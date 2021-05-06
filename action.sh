@@ -22,8 +22,6 @@ do
 
     if [[ $SEMGREP_APPEND == "true" && $file = ".semgrep.yml" && -f "$file" ]]
     then
-      echo "APPENDING FILE"
-      cat .semgrep.yml
       mv ".semgrep.yml" $BCK_SEMGREP_FILE
     fi
 
@@ -36,5 +34,7 @@ do
       echo "ℹ️ Local $file file detected skipping overwrite"
     fi
 done
+
+cat .semgrep.yml
 
 echo "ℹ️ Configuration files correctly copied"
