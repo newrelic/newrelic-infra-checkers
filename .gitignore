@@ -1,5 +1,6 @@
 /.golangci.yml
 /.semgrep.yml
+/.semgrep-bck.yml
 /.semgrepignore
 semgrep-go
 yq

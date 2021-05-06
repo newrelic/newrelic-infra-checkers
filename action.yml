@@ -1,8 +1,14 @@
 name: 'Get static analysis tools configs'
 description: 'This action gets the required configs for the static analysis tools used to check nri-integrations'
-
+inputs:
+  semgrep-append:
+    description: 'if set to true, local semgrep file policies will join the ones in this repository.'
+    required: false
+    default: 'false'
 runs:
   using: "composite"
   steps: 
     - run: $GITHUB_ACTION_PATH/action.sh
       shell: bash
+      env:
+        SEMGREP_APPEND: ${{ inputs.semgrep-append }}

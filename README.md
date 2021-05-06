@@ -12,7 +12,10 @@ Usage and defaults:
 ```yaml
 - name: Get default configuration files for NR static analysis tools
   uses: newrelic/newrelic-infra-checkers@v1
+  with:
+    semgrep-append: false # Optional, if set to true, local semgrep file policies will join the ones in this repository. 
 ```
+If local config file for the linters exist, the ones in this repository won't overwrite them.
 
 ## Support
 
