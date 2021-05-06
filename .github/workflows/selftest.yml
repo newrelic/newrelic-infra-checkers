@@ -24,4 +24,30 @@ jobs:
         with:
           semgrep-append: false
       - name: Check if correct files exist
-        run: make test
+        run: make test-local
+
+  local_semgrep_append:
+    runs-on: ubuntu-latest
+    name: Test get config files with local files and semgrep-append set to true
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get test local files
+        run: for f in ./test/data/*; do cp "$f" ".$(basename $f)"; done
+      - name: Run action
+        uses: ./
+        with:
+          semgrep-append: true
+      - name: Check if correct files exist
+        run: make test-local-semgrep
+
+  default:
+    runs-on: ubuntu-latest
+    name: Test get config files when no local files are found
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run action
+        uses: ./
+        with:
+          semgrep-append: true
+      - name: Check if correct files exist
+        run: make test-default

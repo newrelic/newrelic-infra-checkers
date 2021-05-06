@@ -1,14 +1,16 @@
 SHELL := /bin/bash
 
-# Determine files to test by lookng into test_data/*
-TEST_FILES ?= $(wildcard ./test_data/*)
-
-# Determine file basenames without the stripping out the dir names
-BASENAMES := $(foreach file,${TEST_FILES},$(notdir ${file}))
-
-test:
-	@echo "=== $(INTEGRATION) === [ test ]: Running unit tests..."
+test-local:
+	@echo "Running test with local files..."
 	@bash ./test/test_local.sh
 
-.PHONY: test
+test-local-semgrep:
+	@echo "Running test with local files and semgrep_append..."
+	@bash ./test/test_local_semgrep.sh
+
+test-default:
+	@echo "[ test ]: Running test with no local files..."
+	@bash ./test/test_default.sh
+
+.PHONY: test-local test-local-semgrep test-default
 
