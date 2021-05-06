@@ -1,0 +1,29 @@
+name: Self-test linux action
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+
+# ATTENTION
+# This is a self-test pipeline and it is *NOT* intended to be used as a base/quickstart on how to
+# use the action. Please refer to the examples in the README.md file for that
+
+jobs:
+  local:
+    runs-on: ubuntu-latest
+    name: Test get config files with local files
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get test local files
+        shell: bash
+        run: mv ./testdata/* .
+      - name: Run action
+        uses: .
+        with:
+          semgrep-append: false
+      - name: Check if correct files exist
+        shell: bash
+        run: make test
