@@ -20,9 +20,8 @@ jobs:
       - name: Get test local files
         shell: bash
         run: mv ./test/data/* .
-      - uses: actions/checkout@v2
       - name: Run action
-        uses: ./action.sh
+        uses: ./
         with:
           semgrep-append: false
       - name: Check if correct files exist
