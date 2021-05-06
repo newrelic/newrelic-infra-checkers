@@ -33,5 +33,6 @@ do
     else
       echo "ℹ️ Local $file file detected skipping overwrite"
     fi
-    return 0
 done
+
+echo "ℹ️ Configuration files correctly copied"
