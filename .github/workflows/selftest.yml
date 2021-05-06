@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Get test local files
         shell: bash
-        run: mv ./testdata/* .
+        run: mv ./test/data/* .
       - name: Run action
         uses: ./
         with:
