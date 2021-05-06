@@ -11,7 +11,7 @@ do
         echo "✅ The generated file $(basename $file) is as expected"
     else
         if [ "$file" != "semgrep.yml" ]; then
-            echo "❌ The generated file $(basename $file) is not as expected"
+            echo "❌ The xgenerated file $(basename $file) is not as expected"
             HAS_FAILED="true"
         else
             EXISTS_LOCAL=$(cat "./."$(basename $file) | grep "invented-policy" | wc -l)
