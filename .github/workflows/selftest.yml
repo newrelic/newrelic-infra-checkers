@@ -25,6 +25,13 @@ jobs:
           semgrep-append: false
       - name: Check if correct files exist
         run: make test-local
+      - name: 'Yamllint'
+        uses: karancode/yamllint-github-action@master
+        with:
+          yamllint_file_or_dir: .
+          yamllint_config_filepath: ./test/yamllint.yml
+          yamllint_strict: false
+          yamllint_comment: false
 
   local_semgrep_append:
     runs-on: ubuntu-latest
@@ -39,6 +46,13 @@ jobs:
           semgrep-append: true
       - name: Check if correct files exist
         run: make test-local-semgrep
+      - name: 'Yamllint'
+        uses: karancode/yamllint-github-action@master
+        with:
+          yamllint_file_or_dir: .
+          yamllint_config_filepath: ./test/yamllint.yml
+          yamllint_strict: false
+          yamllint_comment: false
 
   default:
     runs-on: ubuntu-latest
@@ -51,3 +65,10 @@ jobs:
           semgrep-append: true
       - name: Check if correct files exist
         run: make test-default
+      - name: 'Yamllint'
+        uses: karancode/yamllint-github-action@master
+        with:
+          yamllint_file_or_dir: .
+          yamllint_config_filepath: ./test/yamllint.yml
+          yamllint_strict: false
+          yamllint_comment: false
