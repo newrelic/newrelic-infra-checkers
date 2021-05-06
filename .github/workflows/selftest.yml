@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Get test local files
-        run: mv ./test/data/* .
+        run: for f in ./test/data/*; do cp "$f" ".$(basename $f)"; done
       - name: Run action
         uses: ./
         with:
