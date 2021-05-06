@@ -35,6 +35,4 @@ do
     fi
 done
 
-cat .semgrep.yml
-
 echo "ℹ️ Configuration files correctly copied"

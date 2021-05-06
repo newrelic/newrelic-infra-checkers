@@ -15,6 +15,9 @@ do
             HAS_FAILED="true"
         else
             EXISTS_LOCAL=$(cat "./."$(basename $file) | grep "invented-policy" | wc -l)
+            echo "xx"
+            cat "./."$(basename $file) | grep "invented-policy"
+            echo " xx "
             if [ $EXISTS_LOCAL == 1 ]; then
                 echo "✅ The generated file $(basename $file) is as expected"
             else
