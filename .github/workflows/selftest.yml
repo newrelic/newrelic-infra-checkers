@@ -21,7 +21,7 @@ jobs:
         shell: bash
         run: mv ./testdata/* .
       - name: Run action
-        uses: .
+        uses: ./
         with:
           semgrep-append: false
       - name: Check if correct files exist
