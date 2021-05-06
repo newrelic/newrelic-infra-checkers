@@ -1,0 +1,6 @@
+/.golangci.yml
+/.semgrep.yml
+/.semgrepignore
+semgrep-go
+yq
+wget-log
