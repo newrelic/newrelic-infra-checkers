@@ -15,9 +15,6 @@ FOLDER_FILE=( "semgrep:.semgrep.yml"
 [[ -n $GITHUB_ACTION_PATH ]] || GITHUB_ACTION_PATH=$(pwd)
 [[ -n $SEMGREP_APPEND ]] || SEMGREP_APPEND="false"
 
-echo "SEMGREP_APPEND"
-echo $SEMGREP_APPEND
-
 for folderFile in ${FOLDER_FILE[@]}
 do
     folder="${folderFile%%:*}"
@@ -25,6 +22,8 @@ do
 
     if [[ $SEMGREP_APPEND == "true" && $file = ".semgrep.yml" && -f "$file" ]]
     then
+      echo "APPENDING FILE"
+      cat .semgrep.yml
       mv ".semgrep.yml" $BCK_SEMGREP_FILE
     fi
 
