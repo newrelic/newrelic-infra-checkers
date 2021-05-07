@@ -7,7 +7,7 @@ set -o pipefail
 [[ -n $SEMGREP_APPEND ]] || SEMGREP_APPEND="false"
 
 
-find golangci-lint  -type f | while read -e file
+find golangci-lint  -type f | while read -r file
 do
   fileBasename=$(basename $file)
 
@@ -20,7 +20,7 @@ do
   fi
 done
 
-find semgrep -type f | while read -e file
+find semgrep -type f | while read -r file
 do
     fileBasename=$(basename $file)
 
