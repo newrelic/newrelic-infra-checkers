@@ -33,7 +33,9 @@ do
     then
       echo "ℹ️ Copying $fileBasename file to repo root directory"
       cp "$GITHUB_ACTION_PATH/$file" "$fileBasename"
-      [[ $fileBasename = ".semgrep.yml" ]] && . "./semgrep.sh" && semgrep_get_policies;
+      if [[ $fileBasename == ".semgrep.yml" ]]; then
+        . "./semgrep.sh" && semgrep_get_policies;
+      fi
     else
       echo "ℹ️ Local $fileBasename file detected skipping overwrite"
     fi
