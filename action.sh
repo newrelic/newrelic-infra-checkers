@@ -32,11 +32,8 @@ do
     if [[ ! -f "$fileBasename" ]]
     then
       echo "ℹ️ Copying $fileBasename file to repo root directory"
-      echo "$GITHUB_ACTION_PATH/$file ## $fileBasename"
       cp "$GITHUB_ACTION_PATH/$file" "$fileBasename"
-      echo "xx"
       [[ $fileBasename = ".semgrep.yml" ]] && . "./semgrep.sh" && semgrep_get_policies;
-      echo "yy"
     else
       echo "ℹ️ Local $fileBasename file detected skipping overwrite"
     fi
