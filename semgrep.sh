@@ -29,19 +29,15 @@ semgrep_get_policies() {
     rm .semgrep.yml.bak
   fi
 
-  for entry in "$SEMGREP_GO_FOLDER"/*
+  find "$SEMGREP_GO_FOLDER" -iname '*.yaml' -or -iname '*.yml' | while read entry
   do
-    if [ "${entry: -4}" == ".yml" ]
-    then
-        # substitute \ and \" symbols by placeholder so yq doesn't strip them
-        cat .semgrep.yml | sed 's/\\"/'"$PHOLDER_QUOTES"'/g' | sed 's/\\/'"$PHOLDER_SLASH"'/g' > .semgrep.yml.fixed
-        mv .semgrep.yml{.fixed,}
+      # substitute \ and \" symbols by placeholder so yq doesn't strip them
+      cat .semgrep.yml | sed 's/\\"/'"$PHOLDER_QUOTES"'/g' | sed 's/\\/'"$PHOLDER_SLASH"'/g' > .semgrep.yml.fixed
+      mv .semgrep.yml{.fixed,}
 
-
-        ./bin/yq eval-all 'select(fileIndex == 0).rules + select(fileIndex == 1).rules' $entry .semgrep.yml |\
-          ./bin/yq eval '{"rules": .}' - > .semgrep.yml.fixed
-        mv .semgrep.yml{.fixed,}
-    fi
+      ./bin/yq eval-all 'select(fileIndex == 0).rules + select(fileIndex == 1).rules' $entry .semgrep.yml |\
+        ./bin/yq eval '{"rules": .}' - > .semgrep.yml.fixed
+      mv .semgrep.yml{.fixed,}
   done
 
   # restore \ and \" symbols from placeholder
