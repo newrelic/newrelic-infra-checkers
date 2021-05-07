@@ -12,7 +12,7 @@ on:
 # use the action. Please refer to the examples in the README.md file for that
 
 jobs:
-  local:
+  test_local:
     runs-on: ubuntu-latest
     name: Test get config files with local files
     steps:
@@ -33,7 +33,7 @@ jobs:
           yamllint_strict: false
           yamllint_comment: false
 
-  local_semgrep_append:
+  test_local_semgrep_append:
     runs-on: ubuntu-latest
     name: Test get config files with local files and semgrep-append set to true
     steps:
@@ -46,7 +46,7 @@ jobs:
           semgrep-append: true
       - name: Check if correct files exist
         run: make test-local-semgrep
-      - name: 'Yamllint'
+      - name: Yamllint
         uses: karancode/yamllint-github-action@master
         with:
           yamllint_file_or_dir: ./test/tmp
@@ -54,7 +54,7 @@ jobs:
           yamllint_strict: false
           yamllint_comment: false
 
-  default:
+  test_default_files:
     runs-on: ubuntu-latest
     name: Test get config files when no local files are found
     steps:

@@ -19,14 +19,14 @@ semgrep_get_policies() {
   OUT=$(sed 's/\\"/'"$PHOLDER_QUOTES"'/g' .semgrep.yml | sed 's/\\/'"$PHOLDER_SLASH"'/g')
   echo "$OUT" > .semgrep.yml
 
-  if [[ -f "$BCK_SEMGREP_FILE" ]]
+  if [[ -f .semgrep.yml.bak ]]
   then
     # substitute \ and \" symbols by placeholder so yq doesn't strip them
-    OUT=$(sed 's/\\"/'"$PHOLDER_QUOTES"'/g' "$BCK_SEMGREP_FILE" | sed 's/\\/'"$PHOLDER_SLASH"'/g')
-    OUT=$(./bin/yq eval-all 'select(fileIndex == 0).rules + select(fileIndex == 1).rules' $BCK_SEMGREP_FILE .semgrep.yml |\
+    OUT=$(sed 's/\\"/'"$PHOLDER_QUOTES"'/g' .semgrep.yml.bak | sed 's/\\/'"$PHOLDER_SLASH"'/g')
+    OUT=$(./bin/yq eval-all 'select(fileIndex == 0).rules + select(fileIndex == 1).rules' .semgrep.yml.bak .semgrep.yml |\
           ./bin/yq eval '{"rules": .}' -)
     echo "$OUT" > .semgrep.yml
-    rm $BCK_SEMGREP_FILE
+    rm .semgrep.yml.bak
   fi
 
   for entry in "$SEMGREP_GO_FOLDER"/*
