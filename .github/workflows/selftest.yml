@@ -19,7 +19,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Get test local files
         run: for f in ./test/data/*; do cp "$f" ".$(basename $f)"; done
-      - run: sudo apt-get yq
       - name: Run action
         uses: ./
         with:
@@ -41,7 +40,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Get test local files
         run: find ./test/data/ -type f | while read -r f; do cp "$f" ".$(basename $f)"; done
-      - run: sudo apt-get yq
       - name: Run action
         uses: ./
         with:
@@ -61,7 +59,6 @@ jobs:
     name: Test get config files when no local files are found
     steps:
       - uses: actions/checkout@v2
-      - run: sudo apt-get yq
       - name: Run action
         uses: ./
         with:
