@@ -1,0 +1,74 @@
+name: Self-test linux action
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+
+# ATTENTION
+# This is a self-test pipeline and it is *NOT* intended to be used as a base/quickstart on how to
+# use the action. Please refer to the examples in the README.md file for that
+
+jobs:
+  test_local:
+    runs-on: ubuntu-latest
+    name: Test get config files with local files
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get test local files
+        run: for f in ./test/data/*; do cp "$f" ".$(basename $f)"; done
+      - name: Run action
+        uses: ./
+        with:
+          semgrep-append: false
+      - name: Check if correct files exist
+        run: make test-local
+      - name: Yamllint
+        uses: karancode/yamllint-github-action@master
+        with:
+          yamllint_file_or_dir: ./test/tmp
+          yamllint_config_filepath: ./test/yamllint.yml
+          yamllint_strict: false
+          yamllint_comment: false
+
+  test_local_semgrep_append:
+    runs-on: ubuntu-latest
+    name: Test get config files with local files and semgrep-append set to true
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get test local files
+        run: find ./test/data/ -type f | while read -r f; do cp "$f" ".$(basename $f)"; done
+      - name: Run action
+        uses: ./
+        with:
+          semgrep-append: true
+      - name: Check if correct files exist
+        run: make test-local-semgrep
+      - name: Yamllint
+        uses: karancode/yamllint-github-action@master
+        with:
+          yamllint_file_or_dir: ./test/tmp
+          yamllint_config_filepath: ./test/yamllint.yml
+          yamllint_strict: false
+          yamllint_comment: false
+
+  test_default_files:
+    runs-on: ubuntu-latest
+    name: Test get config files when no local files are found
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run action
+        uses: ./
+        with:
+          semgrep-append: true
+      - name: Check if correct files exist
+        run: make test-default
+      - name: Yamllint
+        uses: karancode/yamllint-github-action@master
+        with:
+          yamllint_file_or_dir: ./test/tmp
+          yamllint_config_filepath: ./test/yamllint.yml
+          yamllint_strict: false
+          yamllint_comment: false
