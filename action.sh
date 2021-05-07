@@ -15,7 +15,7 @@ for file in {semgrep,golangci-lint}/.[^.]*
 do
     fileBasename=$(basename $file)
 
-    if [[ $SEMGREP_APPEND == "true" && $fileBasename = ".semgrep.yml" && -f "$file" ]]
+    if [[ $SEMGREP_APPEND == "true" && $fileBasename = ".semgrep.yml" && -f "$fileBasename" ]]
     then
       mv ".semgrep.yml" $BCK_SEMGREP_FILE
     fi
