@@ -16,16 +16,16 @@ semgrep_get_policies() {
   git clone $SEMGREP_GO_REPO;
 
   # substitute \ and \" symbols by placeholder so yq doesn't strip them
-  OUT=$(sed 's/\\"/'"$PHOLDER_QUOTES"'/g' .semgrep.yml | sed 's/\\/'"$PHOLDER_SLASH"'/g')
-  echo "$OUT" > .semgrep.yml
+  sed 's/\\"/'"$PHOLDER_QUOTES"'/g' .semgrep.yml | sed 's/\\/'"$PHOLDER_SLASH"'/g' > .semgrep.yml.fixed
+  mv .semgrep.yml{.fixed,}
 
   if [[ -f .semgrep.yml.bak ]]
   then
     # substitute \ and \" symbols by placeholder so yq doesn't strip them
-    OUT=$(sed 's/\\"/'"$PHOLDER_QUOTES"'/g' .semgrep.yml.bak | sed 's/\\/'"$PHOLDER_SLASH"'/g')
-    OUT=$(./bin/yq eval-all 'select(fileIndex == 0).rules + select(fileIndex == 1).rules' .semgrep.yml.bak .semgrep.yml |\
-          ./bin/yq eval '{"rules": .}' -)
-    echo "$OUT" > .semgrep.yml
+    sed 's/\\"/'"$PHOLDER_QUOTES"'/g' .semgrep.yml.bak | sed 's/\\/'"$PHOLDER_SLASH"'/g' > .semgrep.yml.fixed
+    ./bin/yq eval-all 'select(fileIndex == 0).rules + select(fileIndex == 1).rules' .semgrep.yml.bak .semgrep.yml |\
+          ./bin/yq eval '{"rules": .}' - > .semgrep.yml.fixed
+    mv .semgrep.yml{.fixed,}
     rm .semgrep.yml.bak
   fi
 
@@ -34,18 +34,19 @@ semgrep_get_policies() {
     if [ "${entry: -4}" == ".yml" ]
     then
         # substitute \ and \" symbols by placeholder so yq doesn't strip them
-        OUTPUT=$(sed 's/\\"/'"$PHOLDER_QUOTES"'/g' $entry | sed 's/\\/'"$PHOLDER_SLASH"'/g')
-        echo "$OUTPUT" > "$entry"
+        cat .semgrep.yml | sed 's/\\"/'"$PHOLDER_QUOTES"'/g' | sed 's/\\/'"$PHOLDER_SLASH"'/g' > .semgrep.yml.fixed
+        mv .semgrep.yml{.fixed,}
 
-        OUTPUT=$(./bin/yq eval-all 'select(fileIndex == 0).rules + select(fileIndex == 1).rules' $entry .semgrep.yml |\
-          ./bin/yq eval '{"rules": .}' -)
-        echo "$OUTPUT" > .semgrep.yml
+
+        ./bin/yq eval-all 'select(fileIndex == 0).rules + select(fileIndex == 1).rules' $entry .semgrep.yml |\
+          ./bin/yq eval '{"rules": .}' - > .semgrep.yml.fixed
+        mv .semgrep.yml{.fixed,}
     fi
   done
 
   # restore \ and \" symbols from placeholder
-  OUTPUT=$(sed 's/'"$PHOLDER_QUOTES"'/\\"/g' .semgrep.yml | sed 's/'"$PHOLDER_SLASH"'/\\\\/g')
-  echo "$OUTPUT" > .semgrep.yml
+  cat .semgrep.yml | sed 's/'"$PHOLDER_QUOTES"'/\\"/g' | sed 's/'"$PHOLDER_SLASH"'/\\\\/g' > .semgrep.yml.fixed
+  mv .semgrep.yml{.fixed,}
 
   rm -rf semgrep-go
 }
