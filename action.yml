@@ -9,11 +9,9 @@ runs:
   using: "composite"
   steps:
     - run: |
-        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CC86BB64
-        sudo add-apt-repository ppa:rmescandon/yq
-        sudo apt update
-        sudo apt install yq -y
-        yq --version
+        # apt is not updated version 3
+        wget https://github.com/mikefarah/yq/releases/download/v4.7.1/linux_amd64.tar.gz -O - |\
+        tar xz && mv linux_amd64 /usr/bin/yq
       shell: bash
     - run: $GITHUB_ACTION_PATH/action.sh
       shell: bash
