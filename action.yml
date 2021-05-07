@@ -8,7 +8,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: apt-get yq
+    - run: sudo apt-get yq
       shell: bash
     - run: $GITHUB_ACTION_PATH/action.sh
       shell: bash
