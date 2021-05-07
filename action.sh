@@ -7,20 +7,20 @@ set -o pipefail
 [[ -n $SEMGREP_APPEND ]] || SEMGREP_APPEND="false"
 
 
-find ./golangci-lint  -type f | while read -r file
+find $GITHUB_ACTION_PATH/golangci-lint  -type f | while read -r file
 do
   fileBasename=$(basename $file)
 
   if [[ ! -f "$fileBasename" ]]
   then
       echo "ℹ️ Copying $fileBasename file to repo root directory"
-      cp "$GITHUB_ACTION_PATH/$file" "$fileBasename"
+      cp "$file" "$fileBasename"
   else
       echo "ℹ️ Local $fileBasename file detected skipping overwrite"
   fi
 done
 
-find ./semgrep -type f | while read -r file
+find $GITHUB_ACTION_PATH/semgrep -type f | while read -r file
 do
     fileBasename=$(basename $file)
 
@@ -32,7 +32,7 @@ do
     if [[ ! -f "$fileBasename" ]]
     then
       echo "ℹ️ Copying $fileBasename file to repo root directory"
-      cp "$GITHUB_ACTION_PATH/$file" "$fileBasename"
+      cp "$file" "$fileBasename"
       if [[ $fileBasename == ".semgrep.yml" ]]; then
         . "./semgrep.sh" && semgrep_get_policies;
       fi
