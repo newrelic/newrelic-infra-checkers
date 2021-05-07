@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Get test local files
-        run: for f in ./test/data/*; do cp "$f" ".$(basename $f)"; done
+        run: find ./test/data/ -type f | while read -r f; do cp "$f" ".$(basename $f)"; done
       - name: Run action
         uses: ./
         with:
