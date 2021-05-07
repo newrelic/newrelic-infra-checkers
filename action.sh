@@ -7,31 +7,26 @@ BCK_SEMGREP_FILE=".semgrep-bck.yml"
 
 . "./semgrep.sh"
 
-# folderFile array follows the pattern folder:file
-FOLDER_FILE=( "semgrep:.semgrep.yml"
-              "semgrep:.semgrepignore"
-              "golangci-lint:.golangci.yml" )
-
 [[ -n $GITHUB_ACTION_PATH ]] || GITHUB_ACTION_PATH=$(pwd)
 [[ -n $SEMGREP_APPEND ]] || SEMGREP_APPEND="false"
 
-for folderFile in ${FOLDER_FILE[@]}
+# List of folders where to look for config files
+for file in {semgrep,golangci-lint}/.[^.]*
 do
-    folder="${folderFile%%:*}"
-    file="${folderFile##*:}"
+    fileBasename=$(basename $file)
 
-    if [[ $SEMGREP_APPEND == "true" && $file = ".semgrep.yml" && -f "$file" ]]
+    if [[ $SEMGREP_APPEND == "true" && $fileBasename = ".semgrep.yml" && -f "$file" ]]
     then
       mv ".semgrep.yml" $BCK_SEMGREP_FILE
     fi
 
-    if [[ ! -f "$file" ]]
+    if [[ ! -f "$fileBasename" ]]
     then
-      echo "ℹ️ Copying $file file to repo root directory"
-      cp "$GITHUB_ACTION_PATH/$folder/$file" "$file"
-      [[ $file = ".semgrep.yml" ]] && semgrep_get_policies;
+      echo "ℹ️ Copying $fileBasename file to repo root directory"
+      cp "$GITHUB_ACTION_PATH/$file" "$fileBasename"
+      [[ $fileBasename = ".semgrep.yml" ]] && semgrep_get_policies;
     else
-      echo "ℹ️ Local $file file detected skipping overwrite"
+      echo "ℹ️ Local $fileBasename file detected skipping overwrite"
     fi
 done
 
