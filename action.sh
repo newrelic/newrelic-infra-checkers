@@ -6,8 +6,13 @@ set -o pipefail
 [[ -n $GITHUB_ACTION_PATH ]] || GITHUB_ACTION_PATH=$(pwd)
 [[ -n $SEMGREP_APPEND ]] || SEMGREP_APPEND="false"
 
-for file in golangci-lint/.[^.]*
+for file in golangci-lint/{*,.[^.]*}
 do
+    # check if files of type where found if not continue
+    if [[ $(echo $file | { grep -Fnc '*' || true; }) == 1  ]]; then
+        continue
+    fi
+
     fileBasename=$(basename $file)
 
     if [[ ! -f "$fileBasename" ]]
@@ -19,8 +24,13 @@ do
     fi
 done
 
-for file in semgrep/.[^.]*
+for file in semgrep/{*,.[^.]*}
 do
+    # check if files of type where found if not continue
+    if [[ $(echo $file | { grep -Fnc '*' || true; }) == 1  ]]; then
+        continue
+    fi
+
     fileBasename=$(basename $file)
 
     if [[ $SEMGREP_APPEND == "true" && $fileBasename = ".semgrep.yml" && -f "$fileBasename" ]]
