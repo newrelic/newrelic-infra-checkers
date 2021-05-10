@@ -2,9 +2,9 @@ name: Get static analysis tools configs.
 description: This action gets the required configs for the static analysis tools used to check nri-integrations.
 inputs:
   semgrep-append:
-    description: If set to true, local semgrep file policies will join the ones in this repository.
+    description: If set to false, your local semgrep file will be preserved, by default the default ones are appended.
     required: false
-    default: 'false'
+    default: 'true'
 runs:
   using: "composite"
   steps:
