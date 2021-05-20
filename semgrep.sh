@@ -34,7 +34,7 @@ semgrep_get_policies() {
   done
 
   # restore \ and \" symbols from placeholder
-  cat .semgrep.yml | sed 's/'"$PHOLDER_QUOTES"'/\\"/g' | sed 's/'"$PHOLDER_SLASH"'/\\\\/g' > .semgrep.yml.fixed
+  cat .semgrep.yml | sed 's/'"$PHOLDER_QUOTES"'/\\"/g' | sed 's/'"$PHOLDER_SLASH"'/\\/g' > .semgrep.yml.fixed
   mv .semgrep.yml{.fixed,}
 
   rm -rf semgrep-go
