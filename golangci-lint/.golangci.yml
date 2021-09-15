@@ -58,7 +58,6 @@ linters:
     - gocritic
     - gocyclo
     - gocognit
-    - goerr113    #only add if go > 1.13
     - errorlint   #only add if go > 1.13
     - gofmt
     - goimports
@@ -93,6 +92,7 @@ linters:
   # - goconst   #looks for repetitions of variables that should go on constant
   # - godot
   # - godox
+  # - goerr113    # We do not have clearly defined error types yet.
   # - interfacer
   # - lll
   # - nakedret
