@@ -6,3 +6,5 @@ test/tmp
 semgrep-go
 yq
 wget-log
+
+.terraform
