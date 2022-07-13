@@ -21,4 +21,4 @@ runs:
       shell: bash
       env:
         SEMGREP_APPEND: ${{ inputs.semgrep-append }}
-        GOLANGCI_LINT_LIMITED: ${{ inputs.golangci-lint-limited }}
+        GOLANGCI_LINT_CONFIG: ${{ inputs.golangci-lint-config }}
