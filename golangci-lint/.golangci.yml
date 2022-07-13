@@ -98,14 +98,12 @@ linters:
     - gosec
     - grouper
     - ifshort
-    - imrtrasr
     - ireturn
     # lll is flagged pretty much on tests only.
     #- lll
     - maintidx
     - makezero
     - misspell
-    - nakedtjson
     - nestif
     - nilerr
     - nilnil
