@@ -1,6 +1,13 @@
 run:
   timeout: 5m
 
+issues:
+  exclude-rules:
+    # False positive: https://github.com/kunwardeep/paralleltest/issues/8.
+    - linters:
+        - paralleltest
+      text: "does not use range value in test Run"
+
 linters-settings:
   dupl:
     threshold: 100
@@ -76,7 +83,8 @@ linters:
     - forbidigo
     - forcetypeassert
     - funlen
-    - gci
+    # gci would need to be customized for each project in order to be useful
+    #- gci
     - gochecknoglobals
     - gochecknoinits
     - gocognit
