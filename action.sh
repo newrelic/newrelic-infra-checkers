@@ -5,9 +5,11 @@ set -o pipefail
 
 [[ -n $GITHUB_ACTION_PATH ]] || GITHUB_ACTION_PATH=$(pwd)
 [[ -n $SEMGREP_APPEND ]] || SEMGREP_APPEND="true"
+[[ -n $GOLANGCI_LINT_CONFIG ]] || GOLANGCI_LINT_CONFIG="golangci-lint-limited"
 
+echo "Using $GOLANGCI_LINT_CONFIG golangci-lint configuration folder"
 
-find $GITHUB_ACTION_PATH/golangci-lint  -type f | while read -r file
+find $GITHUB_ACTION_PATH/$GOLANGCI_LINT_CONFIG  -type f | while read -r file
 do
   fileBasename=$(basename $file)
 

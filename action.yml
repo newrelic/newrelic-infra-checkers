@@ -5,6 +5,10 @@ inputs:
     description: If set to false, your local semgrep file will be preserved, by default the default ones are appended.
     required: false
     default: 'true'
+  golangci-lint-config:
+    description: Set it to use a different folder for golangci-lint settings, by default it uses golangci-lint-limited.
+    required: false
+    default: golangci-lint-limited
 runs:
   using: "composite"
   steps:
@@ -17,3 +21,4 @@ runs:
       shell: bash
       env:
         SEMGREP_APPEND: ${{ inputs.semgrep-append }}
+        GOLANGCI_LINT_CONFIG: ${{ inputs.golangci-lint-config }}
