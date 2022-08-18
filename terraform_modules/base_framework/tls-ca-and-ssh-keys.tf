@@ -25,10 +25,12 @@ resource tls_self_signed_cert coreint_ca {
 }
 
 
-output tls_coreint_ca_cert {
+output tls-ca-and-ssh-keys {
   value = {
-    ca = {
-      cert_pem = tls_self_signed_cert.coreint_ca.cert_pem
+    tls_self_signed_cert = {
+      coreint_ca = {
+        cert_pem = tls_self_signed_cert.coreint_ca.cert_pem
+      }
     }
   }
 }

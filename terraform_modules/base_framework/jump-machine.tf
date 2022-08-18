@@ -68,16 +68,16 @@ data template_cloudinit_config jump_machine {
 resource aws_instance jump_machine {
   provisioner remote-exec {
     connection {
-      type     = "ssh"
-      user     = "terraform"
-      host     = self.public_ip
-      host_key = tls_private_key.coreint_ca.public_key_openssh
-      agent    = true
+      type        = "ssh"
+      user        = "terraform"
+      host        = self.public_ip
+      host_key    = tls_private_key.coreint_ca.public_key_openssh
+      private_key = file(pathexpand("~/.ssh/id_rsa"))
     }
     inline = ["echo cloud-init finished configuring this host. I am able to connect."]
   }
 
-  tags        = {
+  tags = {
     accessible_from = "world"
     workload        = "ssh_jump"
     Name            = "base-framework - Jump machine"
@@ -101,6 +101,11 @@ resource aws_instance jump_machine {
 
 output jump_machine {
   value = {
-    public_ip = aws_instance.jump_machine.public_ip
+    aws_instance = {
+      jump_machine = {
+        public_ip = aws_instance.jump_machine.public_ip
+        host_key  = tls_private_key.coreint_ca.public_key_openssh
+      }
+    }
   }
 }

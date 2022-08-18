@@ -32,14 +32,6 @@ resource aws_default_security_group default {
   }
 }
 
-output aws_default_security_group_default {
-  value = {
-    name = aws_default_security_group.default.name,
-    id   = aws_default_security_group.default.id,
-    arn  = aws_default_security_group.default.arn,
-  }
-}
-
 # ########################################### #
 #  Public                                     #
 # ########################################### #
@@ -67,12 +59,6 @@ resource aws_route_table public {
 resource aws_route_table_association public {
   route_table_id = aws_route_table.public.id
   subnet_id      = aws_subnet.public_subnet.id
-}
-
-output aws_network_public_subnet {
-  value = {
-    id = aws_subnet.public_subnet.id
-  }
 }
 
 
@@ -115,10 +101,24 @@ resource aws_route_table_association private {
   subnet_id      = aws_subnet.private_subnets[count.index].id
 }
 
-output aws_network_private_subnets {
-  value = [
-  for subnet in aws_subnet.private_subnets : {
-    id = subnet.id
+output common_networking {
+  value = {
+    aws_vpc = {
+      base_vpc = {
+        arn = aws_vpc.base_vpc.arn
+        id  = aws_vpc.base_vpc.id
+      }
+    }
+    aws_subnet = {
+      private_subnets = [for subnet in aws_subnet.private_subnets : { id = subnet.id }]
+      public_subnet   = { id = aws_subnet.public_subnet.id }
+    }
+    aws_default_security_group = {
+      default = {
+        arn  = aws_default_security_group.default.arn,
+        id   = aws_default_security_group.default.id,
+        name = aws_default_security_group.default.name,
+      }
+    }
   }
-  ]
 }

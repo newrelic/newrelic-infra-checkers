@@ -8,7 +8,7 @@ output zzz_message {
 
     ====================================
     [profile base-framework]
-    credential_process = cat ${pathexpand("~/.aws/shared-credentials/base-framework/credentials")}
+    credential_process = cat $HOME/.aws/shared-credentials/base-framework/credentials
     region = ${aws_s3_bucket.tfstates.region}
     output = json
     ====================================

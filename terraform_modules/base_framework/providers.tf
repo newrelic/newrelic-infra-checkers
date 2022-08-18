@@ -23,38 +23,28 @@ terraform {
     dynamodb_table = "nr-coreint-terraform-locking"
     key            = "base-framework/global-state-store.tfstate"
     region         = "us-east-1"
-    profile        = "base-framework"  # Change it to your profile on first init/run, then migrate it.
   }
 }
 
 # ########################################### #
 #  Local file                                 #
 # ########################################### #
-provider local {
-  # Configuration options
-}
+provider local {}
 
 # ########################################### #
 #  TLS certs                                  #
 # ########################################### #
-provider tls {
-  # Configuration options
-}
+provider tls {}
 
 # ########################################### #
 #  Template                                   #
 # ########################################### #
-provider template {
-  # Configuration options
-}
+provider template {}
 
 # ########################################### #
 #  AWS                                        #
 # ########################################### #
 provider aws {
-  region  = var.aws_region
-  profile = var.aws_profile
-
   default_tags {
     tags = {
       "owning_team" = "COREINT"
@@ -63,12 +53,4 @@ provider aws {
   }
 }
 
-# Variables so we can change them using Environment variables.
-variable aws_region {
-  type    = string
-  default = "us-east-1"
-}
-variable aws_profile {
-  type    = string
-  default = "coreint"
-}
+data aws_region current {}

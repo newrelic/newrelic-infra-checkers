@@ -82,6 +82,8 @@ resource aws_iam_user_policy access_to_terraform_states {
 
 resource local_file credentials_file {
   filename = pathexpand("~/.aws/shared-credentials/base-framework/credentials")  # HARDCODED
+  directory_permission = "0700"
+  file_permission = "0400"
   content  = jsonencode({
     "Version" : 1
     "AccessKeyId" : aws_iam_access_key.base_framework.id
@@ -89,7 +91,7 @@ resource local_file credentials_file {
   })
 }
 
-output iam {
+output iam_team_user {
   value = {
     aws_iam_user = {
       base_framework = {
