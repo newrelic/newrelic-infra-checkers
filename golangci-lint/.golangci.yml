@@ -99,7 +99,8 @@ linters:
     - goheader
     - goimports
     - gomnd
-    - gomoddirectives
+    # We need replacement to "fix" vulnerability issues.
+    # - gomoddirectives
     - gomodguard
     - goprintffuncname
     - gosec
