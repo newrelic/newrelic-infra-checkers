@@ -1,7 +1,7 @@
 data aws_ami ubuntu {
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-hirsute-21.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-*-amd64-server-*"]
   }
   filter {
     name   = "virtualization-type"
@@ -35,6 +35,7 @@ resource aws_security_group ssh_icmp_access_to_jump_machine {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
 
 data template_cloudinit_config jump_machine {
   gzip          = false
@@ -96,15 +97,18 @@ resource aws_instance jump_machine {
     aws_security_group.ssh_icmp_access_to_jump_machine.id
   ]
 
+  key_name         = aws_key_pair.base_framework.key_name
   user_data_base64 = data.template_cloudinit_config.jump_machine.rendered
 }
+
 
 output jump_machine {
   value = {
     aws_instance = {
       jump_machine = {
-        public_ip = aws_instance.jump_machine.public_ip
-        host_key  = tls_private_key.coreint_ca.public_key_openssh
+        public_ip                  = aws_instance.jump_machine.public_ip
+        host_key                   = tls_private_key.coreint_ca.public_key_openssh
+        public_key_fingerprint_md5 = tls_private_key.coreint_ca.public_key_fingerprint_md5
       }
     }
   }

@@ -2,7 +2,6 @@ resource tls_private_key coreint_ca {
   algorithm = "ECDSA"
 }
 
-
 resource tls_self_signed_cert coreint_ca {
   private_key_pem = tls_private_key.coreint_ca.private_key_pem
 
@@ -24,12 +23,34 @@ resource tls_self_signed_cert coreint_ca {
   }
 }
 
+resource tls_private_key ssh_client {
+  algorithm = "ECDSA"
+}
 
-output tls-ca-and-ssh-keys {
+
+output tls_ca_and_ssh_keys {
   value = {
     tls_self_signed_cert = {
       coreint_ca = {
         cert_pem = tls_self_signed_cert.coreint_ca.cert_pem
+      }
+    }
+    tls_private_key = {
+      ssh_client = {
+        public_key_openssh = tls_private_key.ssh_client.public_key_openssh
+        public_key_pem     = tls_private_key.ssh_client.public_key_pem
+      }
+    }
+  }
+}
+
+
+output sensitive__tls_ca_and_ssh_keys {
+  sensitive = true
+  value = {
+    tls_private_key = {
+      ssh_client = {
+        private_key_pem = tls_private_key.ssh_client.private_key_pem
       }
     }
   }
