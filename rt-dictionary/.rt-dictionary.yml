@@ -1,5 +1,4 @@
 # This file is a dictionary used by the [link-dependencies](https://github.com/newrelic/release-toolkit/tree/main/link-dependencies) action.
-
 dictionary:
   newrelic/infrastructure: "https://github.com/newrelic/infrastructure-agent/releases/tag/{{.To}}"
   newrelic/nri-apache: "https://github.com/newrelic/nri-apache/releases/tag/{{.To}}"
