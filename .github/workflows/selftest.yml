@@ -14,7 +14,7 @@ on:
 jobs:
   test_local:
     runs-on: ubuntu-latest
-    name: Test get config files with local files
+    name: Test local files are not override by the ones coming from the action
     steps:
       - uses: actions/checkout@v2
       - name: Get test local files
