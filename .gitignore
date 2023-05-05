@@ -2,7 +2,6 @@
 /.semgrep.yml
 /.semgrep-bck.yml
 /.semgrepignore
-/.rt-dictionary.yml
 test/tmp
 semgrep-go
 yq

@@ -2,35 +2,21 @@
 
 # newrelic-infra-checkers
 
-Common configuration files for tools used in New Relic integrations and agent repositories.
+Default configuration files for the static analysis tools used in New Relic integrations and agent repositories.
 
-Configuration files are placed in hardcoded paths that meets the tools expectations.
-
-If those file already exists in the repo they are not overwritten.
-
-
-## Supported tools
-
-- semgrep: common configuration for [semgrep](https://semgrep.dev/).
-- golangci-lint: common configuration for [golangci-lint](https://golangci-lint.run/).
-  -  golangci-lint limited: contains a limited amount of linters, meant to be added to projects already developed that are not compliant with those removed linters.
-- release toolkit dictionary: dictionary used by the [link-dependencies](https://github.com/newrelic/release-toolkit/tree/main/link-dependencies) action.
+Action to get those default config files.
 
 ## Usage
 
-Example of usage:
+Usage and defaults:
 ```yaml
-jobs:
-  static-analysis:
-    name: Run tools
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: newrelic/newrelic-infra-checkers@v1
-      # Tools running after will use the configuration obtained from 'newrelic-infra-checkers' action.
-      - uses: returntocorp/semgrep-action@v1
-      - uses: golangci/golangci-lint-action@v2
+- name: Get default configuration files for NR static analysis tools
+  uses: newrelic/newrelic-infra-checkers@v1
+  with:
+    semgrep-append: false # Optional, if set to true, local semgrep file policies will join the ones in this repository.
+    golangci-lint-limited: true # Optional, if set to true, `golangci-lint-limited` config will be used instead of `golangci-lint`.
 ```
+If local config file for the linters exist, the ones in this repository won't overwrite them.
 
 ## Support
 

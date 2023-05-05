@@ -9,10 +9,6 @@ inputs:
     description: Set it to use a different folder for golangci-lint settings, by default it uses golangci-lint-limited.
     required: false
     default: golangci-lint-limited
-  rt-dictionary:
-    description: Set it to use a different folder for release toolkit dictionary, by default it uses rt-dictionary.
-    required: false
-    default: rt-dictionary
 runs:
   using: "composite"
   steps:
@@ -26,4 +22,3 @@ runs:
       env:
         SEMGREP_APPEND: ${{ inputs.semgrep-append }}
         GOLANGCI_LINT_CONFIG: ${{ inputs.golangci-lint-config }}
-        RT_DICTIONARY: ${{ inputs.rt-dictionary }}
