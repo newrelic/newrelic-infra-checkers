@@ -67,7 +67,8 @@ linters:
     - contextcheck
     - cyclop
     - deadcode
-    - depguard
+    # We currently don't want to keep a list of allowed dependencies.
+    # - depguard  
     - dogsled
     - dupl
     - durationcheck
