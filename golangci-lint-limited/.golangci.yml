@@ -47,7 +47,6 @@ linters:
   enable:
     - bodyclose
     - deadcode
-    - depguard
     - dogsled
     - dupl
     - errcheck
@@ -58,8 +57,8 @@ linters:
     - gocritic
     - gocyclo
     - gocognit
-    - goerr113    #only add if go > 1.13
-    - errorlint   #only add if go > 1.13
+    - goerr113
+    - errorlint
     - gofmt
     - goimports
     - golint
@@ -89,6 +88,7 @@ linters:
   # don't enable:
   # - asciicheck
   # - scopelint
+  # - depguard
   # - gochecknoglobals
   # - goconst   #looks for repetitions of variables that should go on constant
   # - godot
