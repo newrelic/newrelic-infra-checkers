@@ -16,18 +16,13 @@ linters-settings:
     statements: 50
   gci:
     local-prefixes: github.com/golangci/golangci-lint
-  #  goconst:
-  #    min-len: 2
-  #    min-occurrences: 2
   gocyclo:
     min-complexity: 10
-  golint:
-    min-confidence: 0.8
   gomnd:
     settings:
       mnd:
         # don't include the "operation" and "assign"
-        checks: argument,case,condition,return
+        checks: [argument, case, condition, return]
   govet:
     check-shadowing: true
     settings:
@@ -49,16 +44,13 @@ linters:
   # inverted configuration with `enable-all` and `disable` is not scalable during updates of golangci-lint
   disable-all: true
   enable:
-    - deadcode
     - errcheck
     - gosimple
     - govet
     - ineffassign
     - staticcheck
-    - structcheck
     - typecheck
     - unused
-    - varcheck
     # Disabled by default linters
     - asciicheck
     - bidichk
@@ -106,7 +98,6 @@ linters:
     - goprintffuncname
     - gosec
     - grouper
-    - ifshort
     - ireturn
     # lll is flagged pretty much on tests only.
     #- lll
