@@ -14,17 +14,12 @@ linters-settings:
   funlen:
     lines: 100
     statements: 50
-  gci:
-    local-prefixes: github.com/golangci/golangci-lint
   gocyclo:
     min-complexity: 10
-  gomnd:
-    settings:
-      mnd:
-        # don't include the "operation" and "assign"
-        checks: [argument, case, condition, return]
+  mnd:
+    # don't include the "operation" and "assign"
+    checks: [argument, case, condition, return]
   govet:
-    check-shadowing: true
     settings:
       printf:
         funcs:
@@ -58,7 +53,6 @@ linters:
     - containedctx
     - contextcheck
     - cyclop
-    - deadcode
     # We currently don't want to keep a list of allowed dependencies.
     # - depguard  
     - dogsled
@@ -67,7 +61,6 @@ linters:
     - errcheck
     - errname
     - errorlint
-    - execinquery
     - exhaustive
     # Initializing structs with all fields is nonsense.
     # - exhaustruct
@@ -86,12 +79,12 @@ linters:
     - godot
     # TODOs are fine.
     #- godox
-    - goerr113
+    - err113
     - gofmt
     - gofumpt
     - goheader
     - goimports
-    - gomnd
+    - mnd
     # We need replacement to "fix" vulnerability issues.
     # - gomoddirectives
     - gomodguard

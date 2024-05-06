@@ -7,20 +7,15 @@ linters-settings:
   funlen:
     lines: 100
     statements: 50
-  gci:
-    local-prefixes: github.com/golangci/golangci-lint
   #  goconst:
   #    min-len: 2
   #    min-occurrences: 2
   gocyclo:
     min-complexity: 10
-  gomnd:
-    settings:
-      mnd:
-        #  don't include the "operation" and "assign"
-        checks: [argument, case, condition, return]
+  mnd:
+    #  don't include the "operation" and "assign"
+    checks: [argument, case, condition, return]
   govet:
-    check-shadowing: true
     settings:
       printf:
         funcs:
@@ -41,7 +36,6 @@ linters:
   disable-all: true
   enable:
     - bodyclose
-    - deadcode
     - dogsled
     - dupl
     - errcheck
@@ -52,11 +46,11 @@ linters:
     - gocritic
     - gocyclo
     - gocognit
-    - goerr113
+    - err113
     - errorlint
     - gofmt
     - goimports
-    - gomnd
+    - mnd
     - goprintffuncname
     - gosec
     - gosimple
