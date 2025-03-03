@@ -64,7 +64,6 @@ linters:
     - exhaustive
     # Initializing structs with all fields is nonsense.
     # - exhaustruct
-    - exportloopref
     - forbidigo
     - forcetypeassert
     - funlen
