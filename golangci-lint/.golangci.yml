@@ -52,6 +52,8 @@ linters:
     - bodyclose
     - containedctx
     - contextcheck
+    # succeeds exportloopref
+    - copyloopvar
     - cyclop
     # We currently don't want to keep a list of allowed dependencies.
     # - depguard  
@@ -115,13 +117,16 @@ linters:
     - stylecheck
     # Tags formats vary depending on the project so tagliatelle des not help in common configuration.
     #- tagliatelle
-    - tenv
+    # deprecated as of v1.64, succeeded by usetesting
+    #- tenv
     # _test packages help to test the APIs but internal tests can also be useful, so we do not enforce the black-box approach for all tests.
     # - testpackage
     - thelper
     - tparallel
     - unconvert
     - unparam
+    # succeeds tenv
+    - usetesting
     # Varnamelen is pretty annoying for tests and short methods. Short vars are bad but we trust developer's criteria.
     #- varnamelen
     - wastedassign
